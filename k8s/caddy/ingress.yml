@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: caddy
+  namespace: yournamespace
+  annotations:
+    kubernetes.io/ingress.class: "gce"
+    kubernetes.io/ingress.global-static-ip-name: "mystaticip"
+    ingress.gcp.kubernetes.io/pre-shared-cert: "mycert"
+spec:
+  rules:
+    - host: yourdomain.example.com
+      http:
+        paths:
+          - path: /*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: caddy
+                port:
+                  number: 443

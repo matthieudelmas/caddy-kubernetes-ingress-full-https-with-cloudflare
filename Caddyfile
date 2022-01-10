@@ -1,0 +1,10 @@
+{
+    debug
+    default_sni {$SERVER_NAME}
+}
+
+{$SERVER_NAME}:443 {
+    {$TLS_INTERNAL}
+    log
+    respond "You are using HTTPS, congrats !"
+}

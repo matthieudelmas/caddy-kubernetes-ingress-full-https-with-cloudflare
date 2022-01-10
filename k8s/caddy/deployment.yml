@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: caddy
+  namespace: yournamespace
+  labels:
+    k8s-app: caddy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: caddy
+  template:
+    metadata:
+      labels:
+        k8s-app: caddy
+    spec:
+      containers:
+        - name: caddy
+          image: eu.gcr.io/your-gcp-project/your-gcr-folder/caddy:yourtag
+          resources:
+            requests:
+              cpu: 50m
+              memory: 50Mi
+            limits:
+              cpu: 100m
+              memory: 100Mi
+          ports:
+            - name: https
+              containerPort: 443
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 443
+              scheme: HTTPS
+            initialDelaySeconds: 10
+            timeoutSeconds: 10
+          env:
+            - name: SERVER_NAME
+              value: "yourdomain.example.com"
+            - name: TLS_INTERNAL
+              value: "tls internal"
