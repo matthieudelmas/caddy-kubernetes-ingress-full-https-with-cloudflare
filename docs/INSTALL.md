@@ -12,9 +12,7 @@ To run this project, please check [required configuration](REQUIRED_CONFIG.md)
 ## Run project locally
 
 - start caddy : `docker-compose up --build --force-recreate`
-- check url ✅ :
-   - [HTTP](http://caddy-kubernetes-ingress-full-https-with-cloudflare.localhost)
-   - [HTTPS](https://caddy-kubernetes-ingress-full-https-with-cloudflare.localhost)
+- [check url ✅](https://caddy-kubernetes-ingress-full-https-with-cloudflare.localhost)
 
 ## Deploy GCP
 
@@ -38,6 +36,5 @@ replace variables :
 - deploy k8s : `kubectl apply -f k8s/caddy/deployment.yml -f k8s/caddy/service.yml -f k8s/caddy/ingress.yml`
 
 ### 4. Test
-- check urls ✅ :
-    - [HTTP](http://yourdomain.example.com)
-    - [HTTPS](https://yourdomain.example.com)
+- [check url ✅](https://yourdomain.example.com)
+
