@@ -7,10 +7,14 @@ metadata:
     k8s-app: caddy
   annotations:
     cloud.google.com/neg: '{"ingress": false}'
-    cloud.google.com/app-protocols: '{"https-port":"HTTPS"}'
+    cloud.google.com/app-protocols: '{"http-port":"HTTP", "https-port":"HTTPS"}'
 spec:
   type: NodePort
   ports:
+    - name: http-port
+      port: 80
+      targetPort: 80
+      protocol: 'TCP'
     - name: https-port
       port: 443
       targetPort: 443

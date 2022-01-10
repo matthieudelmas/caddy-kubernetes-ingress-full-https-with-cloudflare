@@ -3,6 +3,11 @@
     default_sni {$SERVER_NAME}
 }
 
+{$SERVER_NAME}:80 {
+    log
+    respond "You are using HTTP, to bad.."
+}
+
 {$SERVER_NAME}:443 {
     {$TLS_INTERNAL}
     log
