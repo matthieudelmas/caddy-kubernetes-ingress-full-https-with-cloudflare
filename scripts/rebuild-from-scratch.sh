@@ -9,7 +9,6 @@ docker build -t eu.gcr.io/gidurt-caddy-k8s-full-https/caddy-kubernetes/caddy:"${
 docker push eu.gcr.io/gidurt-caddy-k8s-full-https/caddy-kubernetes/caddy:"${TAG}"
 kubectl delete namespace ${BRANCH_NAME}
 kubectl create namespace ${BRANCH_NAME}
-kubectl create serviceaccount sa-caddy --namespace ${BRANCH_NAME}
 cp -r k8s .temp-k8s
 sed -i -e "s/\${TAG}/${TAG}/g" .temp-k8s/caddy/*.yml
 sed -i -e "s/\${BRANCH_NAME}/${BRANCH_NAME}/g" .temp-k8s/caddy/*.yml

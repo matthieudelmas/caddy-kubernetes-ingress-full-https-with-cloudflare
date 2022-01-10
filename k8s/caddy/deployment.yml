@@ -15,7 +15,6 @@ spec:
       labels:
         k8s-app: caddy
     spec:
-      serviceAccount: sa-caddy
       containers:
         - name: caddy
           image: eu.gcr.io/gidurt-caddy-k8s-full-https/caddy-kubernetes/caddy:${TAG}
@@ -36,7 +35,7 @@ spec:
           readinessProbe:
             httpGet:
               path: /
-              port: 80
+              port: 443
             initialDelaySeconds: 10
             timeoutSeconds: 10
           env:
