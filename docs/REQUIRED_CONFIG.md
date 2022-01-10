@@ -9,5 +9,5 @@ You will need a GCP project with :
 
 ## Cloudflare (or other DNS provider will work)
 
-- you need to register your domain and manage it with cloudflare
+- you need to register your domain then manage it with cloudflare
 - Add the google static IP as DNS record type A
