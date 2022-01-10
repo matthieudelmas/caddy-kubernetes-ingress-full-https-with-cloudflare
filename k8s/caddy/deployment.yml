@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: caddy
-  namespace: ${BRANCH_NAME}
+  namespace: yournamespace
   labels:
     k8s-app: caddy
 spec:
@@ -15,10 +15,10 @@ spec:
       labels:
         k8s-app: caddy
     spec:
-      serviceAccount: sa-caddy
+      #serviceAccount: sa-caddy
       containers:
         - name: caddy
-          image: eu.gcr.io/gidurt-caddy-k8s-full-https/caddy-kubernetes/caddy:${TAG}
+          image: eu.gcr.io/gidurt-caddy-k8s-full-https/caddy-kubernetes/caddy:yourtag
           resources:
             requests:
               cpu: 50m

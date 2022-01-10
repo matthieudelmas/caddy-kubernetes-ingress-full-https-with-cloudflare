@@ -6,7 +6,7 @@ services:
       context: ./
       target: caddy
     environment:
-      SERVER_NAME: ${SERVER_NAME:-thisisgidurt.localhost}
+      SERVER_NAME: ${SERVER_NAME:-caddy-kubernetes-ingress-full-https-with-cloudflare.localhost}
       TLS_INTERNAL: ${TLS_INTERNAL:-tls internal}
     restart: unless-stopped
     volumes:
