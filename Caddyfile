@@ -1,0 +1,15 @@
+{
+    debug
+    default_sni {$SERVER_NAME}
+    auto_https disable_redirects
+}
+
+{$SERVER_NAME}:80 {
+    log
+    respond "This is HTTP and not secure, too bad.."
+}
+{$SERVER_NAME}:443 {
+    {$TLS_INTERNAL}
+    log
+    respond "You are using HTTPS, congrats !"
+}

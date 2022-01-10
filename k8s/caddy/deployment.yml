@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: caddy
+  namespace: ${BRANCH_NAME}
+  labels:
+    k8s-app: caddy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: caddy
+  template:
+    metadata:
+      labels:
+        k8s-app: caddy
+    spec:
+      serviceAccount: sa-caddy
+      containers:
+        - name: caddy
+          image: eu.gcr.io/gidurt-caddy-k8s-full-https/caddy-kubernetes/caddy:${TAG}
+          resources:
+            requests:
+              cpu: 50m
+              memory: 50Mi
+            limits:
+              cpu: 100m
+              memory: 100Mi
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+            - name: https
+              containerPort: 443
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 10
+            timeoutSeconds: 10
+          env:
+            - name: SERVER_NAME
+              value: "thisisgidurt.agenda-web.fr"
+            - name: TLS_INTERNAL
+              value: "tls internal"

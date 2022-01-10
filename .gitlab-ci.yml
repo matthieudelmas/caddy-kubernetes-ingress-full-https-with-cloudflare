@@ -1,0 +1,56 @@
+variables:
+  DOCKER_HOST: tcp://docker:2375/
+  DOCKER_TLS_CERTDIR: ""
+  SK5_EXPLOITATION_GCR: eu.gcr.io/thisisgidurt-org
+  SK5_EXPLOITATION_GCR_FOLDER: thisisgidurt
+
+.configure_auth: &configure_auth
+  - mkdir -p secrets
+  - echo $SA_GCP > secrets/sa-gcp.json
+  - gcloud auth activate-service-account --key-file secrets/sa-gcp.json
+
+.configure_project: &configure_project
+  - gcloud config set project thisisgidurt-org
+  - gcloud auth configure-docker eu.gcr.io
+
+.configure_cluster: &configure_cluster
+  - gcloud config set container/use_client_certificate False
+  - gcloud container clusters get-credentials thisisgidurt-org-cluster-gke --zone europe-west1-b --project thisisgidurt-org
+
+.install_gcloud: &install_gcloud
+  - apk add python2
+  - wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-365.0.1-linux-x86_64.tar.gz -O google-cloud-sdk.tar.gz
+  - tar -xzf google-cloud-sdk.tar.gz
+  - chmod +x google-cloud-sdk/bin/gcloud
+  - export PATH="$PATH:google-cloud-sdk/bin"
+
+.install_kubectl: &install_kubectl
+  - apk add curl
+  - "curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
+  - "chmod +x kubectl"
+  - "mv ./kubectl /usr/local/bin/kubectl"
+
+build:caddy:
+  stage: build
+  image: docker:18.09
+  services:
+    - name: docker:18.09-dind
+  before_script:
+    - *install_gcloud
+    - *configure_auth
+    - *configure_project
+  script:
+    - docker build ./ -t test/matt/caddy:latest --target caddy -f Dockerfile
+    - docker push eu.gcr.io/thisisgidurt-org/caddy:latest
+
+deploy:caddy:
+  stage: deploy-caddy
+  image: alpine:3.12.0
+  before_script:
+    - *install_gcloud
+    - *install_kubectl
+    - *configure_auth
+    - *configure_project
+    - *configure_cluster
+    - sed XXXXXXXXXXX
+    - kubectl apply

@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: caddy
+  namespace: ${BRANCH_NAME}
+  annotations:
+    kubernetes.io/ingress.class: "gce"
+    kubernetes.io/ingress.global-static-ip-name: "thisisgidurt-staticip"
+    ingress.gcp.kubernetes.io/pre-shared-cert: "thisisgidurt-cert"
+spec:
+  rules:
+    - host: thisisgidurt.agenda-web.fr
+      http:
+        paths:
+          - path: /*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: caddy
+                port:
+                  number: 443
