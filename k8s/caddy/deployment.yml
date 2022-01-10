@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: caddy
-  namespace: yournamespace
+  namespace: ${NAMESPACE}
   labels:
     k8s-app: caddy
 spec:
@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: caddy
-          image: eu.gcr.io/your-gcp-project/your-gcr-folder/caddy:yourtag
+          image: eu.gcr.io/${GCR_PROJECT_IMAGE}/${GCR_FOLDER_IMAGE}/caddy:${GCR_TAG_IMAGE}
           resources:
             requests:
               cpu: 50m

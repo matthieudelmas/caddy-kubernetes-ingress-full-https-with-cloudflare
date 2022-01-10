@@ -18,6 +18,12 @@ To run this project, please check [required configuration](REQUIRED_CONFIG.md)
 
 ## Deploy GCP
 
+replace variables :
+- replace ${NAMESPACE} in k8s/caddy/*.yml
+- ingress.yml host replace yourdomain.example.com with your domain
+- deployment.yml image ${GCR_PROJECT_IMAGE}, ${GCR_FOLDER_IMAGE} and ${GCR_TAG_IMAGE}
+- deployment.yml environment variable SERVER_NAME replace yourdomain.example.com with your domain
+
 ### 1. Generate certificate
 - [Install mkcert](https://github.com/FiloSottile/mkcert#installation)
 - generate cert+key : `mkcert yourdomaine.example.com`
