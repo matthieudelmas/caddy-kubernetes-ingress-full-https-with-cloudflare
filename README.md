@@ -1,4 +1,5 @@
-# caddy-kubernetes-ingress-full-https-with-cloudflare
+# caddy-kubernetes-ingress-full-https-with-cloudflare 
+![test](https://img.shields.io/badge/Maintained%3F-yes-green.svg)
 
 This project is used to demonstrate how to get Caddy server to work in a Kubernetes environment on GCP with end-to-end HTTPS.
 We use Cloudflare for DNS records and as a proxy.
